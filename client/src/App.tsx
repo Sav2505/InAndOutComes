@@ -2,14 +2,17 @@ import { useMemo, useState } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import { TransactionFormModal, type TransactionFormValues } from './components/Forms/TransactionFormModal';
 import { AppLayout } from './components/Layout/AppLayout';
+import { isAuthenticated } from './hooks/useAuth';
 import { DashboardPage } from './pages/DashboardPage';
 import { FuturePlanningPage } from './pages/FuturePlanningPage';
+import { LoginPage } from './pages/LoginPage';
 import { MonthlyPage } from './pages/MonthlyPage';
 import { TransactionsPage } from './pages/TransactionsPage';
 import { WealthPage } from './pages/WealthPage';
 import { useFinanceStore } from './store/financeStore';
 
 function App() {
+  const [authenticated, setAuthenticated] = useState(isAuthenticated);
   const [addModalOpen, setAddModalOpen] = useState(false);
   const { addTransaction, categories } = useFinanceStore();
 
@@ -23,6 +26,10 @@ function App() {
       console.error('Failed to add transaction', error);
     }
   };
+
+  if (!authenticated) {
+    return <LoginPage onSuccess={() => setAuthenticated(true)} />;
+  }
 
   return (
     <>
