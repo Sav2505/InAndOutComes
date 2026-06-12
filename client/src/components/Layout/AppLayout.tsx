@@ -40,10 +40,12 @@ export const AppLayout = ({ onOpenAddTransaction }: AppLayoutProps) => {
         sx={{
           direction: 'rtl',
           flexGrow: 1,
+          minWidth: 0,
           px: { xs: 1.5, md: 3.5 },
           py: { xs: 2, md: 3 },
           mr: { lg: `${drawerWidth}px` },
           width: { lg: `calc(100% - ${drawerWidth}px)` },
+          overflowX: 'hidden',
         }}
       >
         <Box

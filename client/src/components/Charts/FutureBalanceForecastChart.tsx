@@ -1,4 +1,4 @@
-import { Card, CardContent, Typography } from '@mui/material';
+import { Box, Card, CardContent, Typography } from '@mui/material';
 import { motion } from 'framer-motion';
 import {
   Area,
@@ -29,9 +29,9 @@ export const FutureBalanceForecastChart = ({ data }: FutureBalanceForecastChartP
       component={motion.div}
       initial={{ opacity: 0, y: 14 }}
       animate={{ opacity: 1, y: 0 }}
-      sx={{ borderRadius: 4.5, height: 470 }}
+      sx={{ borderRadius: 4.5 }}
     >
-      <CardContent sx={{ height: '100%' }}>
+      <CardContent>
         <Typography variant="h6" fontWeight={700} mb={0.6}>
           צפי יתרות עתידי
         </Typography>
@@ -39,7 +39,8 @@ export const FutureBalanceForecastChart = ({ data }: FutureBalanceForecastChartP
           התפתחות ההון החודשי עד 20 שנה קדימה, כולל הפקדות לנכסים, צבירה שנתית והשפעת התחייבויות
         </Typography>
 
-        <ResponsiveContainer width="100%" height="83%">
+        <Box sx={{ height: { xs: 280, sm: 340, md: 380 }, width: '100%' }}>
+          <ResponsiveContainer width="100%" height="100%">
           <AreaChart data={chartData} margin={{ top: 8, right: 18, left: 0, bottom: 0 }}>
             <defs>
               <linearGradient id="futureBalanceGradient" x1="0" y1="0" x2="0" y2="1">
@@ -84,7 +85,8 @@ export const FutureBalanceForecastChart = ({ data }: FutureBalanceForecastChartP
               dot={false}
             />
           </AreaChart>
-        </ResponsiveContainer>
+          </ResponsiveContainer>
+        </Box>
       </CardContent>
     </Card>
   );

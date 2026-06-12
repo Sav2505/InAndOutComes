@@ -248,13 +248,13 @@
       "name": "קרן השתלמות",
       "institution": "מיטב ד''ש",
       "kind": "pension",
-      "currentBalance": 190745,
+      "currentBalance": 200000,
+      "monthlyContribution": 2650,
+      "annualReturnRate": 4.2,
       "liquidityTier": "months_6",
       "liquidityDays": 180,
       "lastUpdated": "2026-03-15",
-      "id": "70281b7a-42de-4079-b574-3b4b2bc42488",
-      "monthlyContribution": 2650,
-      "annualReturnRate": 4.2
+      "id": "70281b7a-42de-4079-b574-3b4b2bc42488"
     },
     {
       "name": "קופת גמל להשקעה",
