@@ -13,6 +13,8 @@ import {
   Switch,
   TextField,
   Typography,
+  useMediaQuery,
+  useTheme,
 } from '@mui/material';
 import dayjs from 'dayjs';
 import { motion } from 'framer-motion';
@@ -57,6 +59,8 @@ export const TransactionFormModal = ({
   onSubmit,
 }: TransactionFormModalProps) => {
   const [values, setValues] = useState<TransactionFormValues>(getInitialValues);
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
   const expenseCategoryFallback = useMemo(
     () => categories[0]?.id ?? 'other',
@@ -101,13 +105,14 @@ export const TransactionFormModal = ({
       onClose={onClose}
       TransitionProps={{ onEnter: resetFormValues }}
       fullWidth
+      fullScreen={isMobile}
       maxWidth="md"
       PaperProps={{
         component: motion.div,
         initial: { opacity: 0, y: 24, scale: 0.98 },
         animate: { opacity: 1, y: 0, scale: 1 },
         exit: { opacity: 0, y: 10 },
-        sx: { borderRadius: 4 },
+        sx: { borderRadius: isMobile ? 0 : 4 },
       }}
     >
       <DialogTitle sx={{ pb: 1 }}>
@@ -134,7 +139,7 @@ export const TransactionFormModal = ({
                 <Typography sx={fieldTitleSx}>כותרת</Typography>
                 <TextField
                   fullWidth
-                  placeholder="לדוגמה: משכורת חודשית"
+                  placeholder="לדוגמה: קניה לבית"
                   value={values.title}
                   onChange={(event) => setValues((prev) => ({ ...prev, title: event.target.value }))}
                 />

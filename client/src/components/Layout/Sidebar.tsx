@@ -18,9 +18,9 @@ import { motion } from 'framer-motion';
 import { NavLink } from 'react-router-dom';
 
 const menuItems = [
-  { label: 'לוח בקרה', path: '/', icon: <DashboardRoundedIcon /> },
+  { label: 'סקירה חודשית', path: '/', icon: <EventNoteRoundedIcon /> },
+  { label: 'לוח בקרה', path: '/dashboard', icon: <DashboardRoundedIcon /> },
   { label: 'תנועות', path: '/transactions', icon: <ReceiptLongRoundedIcon /> },
-  { label: 'סקירה חודשית', path: '/monthly', icon: <EventNoteRoundedIcon /> },
   { label: 'הון והתחייבויות', path: '/wealth', icon: <SavingsRoundedIcon /> },
   { label: 'תכנון עתידי', path: '/future-planning', icon: <TimelineRoundedIcon /> },
 ];

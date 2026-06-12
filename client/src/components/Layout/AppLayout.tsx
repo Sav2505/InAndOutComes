@@ -48,7 +48,7 @@ export const AppLayout = ({ onOpenAddTransaction }: AppLayoutProps) => {
       >
         <Box
           sx={{
-            borderRadius: 5,
+            borderRadius: { xs: 3, md: 5 },
             p: { xs: 1.5, md: 2.5 },
             bgcolor: '#ffffff',
             border: '1px solid rgba(28, 42, 57, 0.08)',

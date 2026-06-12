@@ -35,9 +35,9 @@ export const RecentActivity = ({ transactions }: RecentActivityProps) => {
                 initial={{ opacity: 0, x: -8 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: index * 0.04 }}
-                direction="row"
+                direction={{ xs: 'column', sm: 'row' }}
                 justifyContent="space-between"
-                alignItems="center"
+                alignItems={{ xs: 'flex-start', sm: 'center' }}
                 py={1.5}
                 spacing={1}
                 sx={{

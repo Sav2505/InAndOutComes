@@ -17,6 +17,7 @@ export interface TransactionFilters {
   type: 'all' | TransactionType;
   sortBy: SortBy;
   sortDirection: SortDirection;
+  search: string;
 }
 
 interface FinanceState {
@@ -81,6 +82,7 @@ const defaultFilters: TransactionFilters = {
   type: 'all',
   sortBy: 'date',
   sortDirection: 'desc',
+  search: '',
 };
 
 const sortTransactions = (

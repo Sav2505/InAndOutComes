@@ -4,9 +4,9 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "dev:5175": "vite --port 5175",
-    "api": "json-server --watch public/db.json --port 5176",
+    "dev": "vite --host",
+    "dev:5175": "vite --host --port 5175",
+    "api": "json-server --watch public/db.json --port 5176 --host 0.0.0.0",
     "dev:full": "concurrently -k -n API,WEB -c cyan,green \"npm:api\" \"npm:dev:5175\"",
     "build": "tsc -b && vite build",
     "lint": "eslint .",

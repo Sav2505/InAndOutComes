@@ -101,11 +101,11 @@ export const getMonthlyTrend = (transactions: Transaction[], monthsBack = 6) => 
     const monthLabel = month.format('MMM YY');
 
     const income = transactions
-      .filter((transaction) => transaction.type === 'income' && getMonthKey(transaction.date) === monthKey)
+      .filter((transaction) => transaction.type === 'income' && transactionAppliesToMonth(transaction, month))
       .reduce((sum, transaction) => sum + transaction.amount, 0);
 
     const expenses = transactions
-      .filter((transaction) => transaction.type === 'expense' && getMonthKey(transaction.date) === monthKey)
+      .filter((transaction) => transaction.type === 'expense' && transactionAppliesToMonth(transaction, month))
       .reduce((sum, transaction) => sum + transaction.amount, 0);
 
     return {

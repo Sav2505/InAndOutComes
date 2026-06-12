@@ -415,13 +415,13 @@ export const WealthManager = () => {
                     return (
                       <Card key={asset.id} variant="outlined" sx={{ borderRadius: 3 }}>
                         <CardContent sx={{ p: 1.4 }}>
-                          <Stack direction="row" justifyContent="space-between" alignItems="center">
-                            <Stack>
+                          <Stack direction={{ xs: 'column', sm: 'row' }} justifyContent="space-between" alignItems={{ xs: 'flex-start', sm: 'center' }} gap={1}>
+                            <Stack flex={1} minWidth={0}>
                               <Typography fontWeight={700}>{asset.name}</Typography>
                               <Typography variant="body2" color="text.secondary">
                                 {asset.institution}
                               </Typography>
-                              <Stack direction="row" spacing={1} alignItems="center" mt={0.4}>
+                              <Stack direction="row" spacing={1} alignItems="center" mt={0.4} flexWrap="wrap">
                                 <Chip
                                   size="small"
                                   label={liquidity?.label ?? 'נזילות לא הוגדרה'}
@@ -435,7 +435,7 @@ export const WealthManager = () => {
                                 הפקדה חודשית: {formatCurrency(asset.monthlyContribution ?? 0)} | צבירה שנתית: {formatPercent(asset.annualReturnRate ?? 0)}
                               </Typography>
                             </Stack>
-                            <Stack direction="row" alignItems="center" spacing={1}>
+                            <Stack direction="row" alignItems="center" spacing={1} flexWrap="wrap">
                               <Typography color="success.main" fontWeight={800}>
                                 {formatCurrency(asset.currentBalance)}
                               </Typography>
@@ -486,14 +486,14 @@ export const WealthManager = () => {
                   liabilities.map((liability) => (
                     <Card key={liability.id} variant="outlined" sx={{ borderRadius: 3 }}>
                       <CardContent sx={{ p: 1.4 }}>
-                        <Stack direction="row" justifyContent="space-between" alignItems="center">
-                          <Stack>
+                        <Stack direction={{ xs: 'column', sm: 'row' }} justifyContent="space-between" alignItems={{ xs: 'flex-start', sm: 'center' }} gap={1}>
+                          <Stack flex={1} minWidth={0}>
                             <Typography fontWeight={700}>{liability.name}</Typography>
                             <Typography variant="body2" color="text.secondary">
                               {liability.lender}
                             </Typography>
                           </Stack>
-                          <Stack direction="row" alignItems="center" spacing={1}>
+                          <Stack direction="row" alignItems="center" spacing={1} flexWrap="wrap">
                             <Typography color="error.main" fontWeight={800}>
                               {formatCurrency(liability.remainingAmount)}
                             </Typography>

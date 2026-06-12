@@ -30,9 +30,10 @@ function App() {
         <Route
           element={<AppLayout onOpenAddTransaction={() => setAddModalOpen(true)} />}
         >
-          <Route path="/" element={<DashboardPage />} />
+          <Route path="/" element={<MonthlyPage />} />
+          <Route path="/dashboard" element={<DashboardPage />} />
           <Route path="/transactions" element={<TransactionsPage />} />
-          <Route path="/monthly" element={<MonthlyPage />} />
+          <Route path="/monthly" element={<Navigate to="/" replace />} />
           <Route path="/wealth" element={<WealthPage />} />
           <Route path="/future-planning" element={<FuturePlanningPage />} />
           <Route path="*" element={<Navigate to="/" replace />} />

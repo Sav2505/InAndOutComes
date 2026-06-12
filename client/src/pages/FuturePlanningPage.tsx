@@ -48,7 +48,7 @@ export const FuturePlanningPage = () => {
                 step={1}
                 marks={[{ value: 1, label: '1' }, { value: 5, label: '5' }, { value: 10, label: '10' }, { value: 15, label: '15' }, { value: 20, label: '20' }]}
                 valueLabelDisplay="auto"
-                sx={{ maxWidth: 420 }}
+                sx={{ maxWidth: { xs: '100%', md: 420 }, flex: 1 }}
               />
             </Stack>
           </Stack>

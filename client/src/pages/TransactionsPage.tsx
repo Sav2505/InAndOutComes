@@ -25,13 +25,16 @@ export const TransactionsPage = () => {
   const [editTarget, setEditTarget] = useState<Transaction | undefined>();
 
   const filteredTransactions = useMemo(() => {
+    const searchTerm = filters.search.trim().toLowerCase();
     return transactions.filter((transaction) => {
       const matchMonth = transactionAppliesToMonth(transaction, dayjs(filters.month));
       const matchType = filters.type === 'all' || transaction.type === filters.type;
       const matchCategory =
         filters.category === 'all' || transaction.category === filters.category;
+      const matchSearch =
+        !searchTerm || transaction.title.toLowerCase().includes(searchTerm);
 
-      return matchMonth && matchType && matchCategory;
+      return matchMonth && matchType && matchCategory && matchSearch;
     });
   }, [transactions, filters]);
 

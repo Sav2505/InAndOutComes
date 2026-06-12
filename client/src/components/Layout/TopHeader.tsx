@@ -7,16 +7,16 @@ import { globalButtonPaddings } from '../../utils/globals';
 
 const pageLabels: Record<string, { title: string; subtitle: string }> = {
   '/': {
+    title: 'סקירה חודשית',
+    subtitle: 'התמונה המלאה של החודש הנבחר',
+  },
+  '/dashboard': {
     title: 'לוח בקרה',
     subtitle: 'סיכום חודשי ברור של הכנסות, הוצאות ויתרה',
   },
   '/transactions': {
     title: 'תנועות',
     subtitle: 'ניהול מסודר של כל ההכנסות וההוצאות',
-  },
-  '/monthly': {
-    title: 'סקירה חודשית',
-    subtitle: 'התמונה המלאה של החודש הנבחר',
   },
   '/wealth': {
     title: 'הון והתחייבויות',
@@ -63,21 +63,34 @@ export const TopHeader = ({ onOpenSidebar, onOpenAddTransaction }: TopHeaderProp
           </IconButton>
         )}
         <Stack>
-          <Typography variant="h5" fontWeight={700}>
+          <Typography variant="h5" fontWeight={700} sx={{ fontSize: { xs: '1.1rem', sm: '1.5rem' } }}>
             {page.title}
           </Typography>
-          <Typography variant="body2" color="text.secondary">
+          <Typography variant="body2" color="text.secondary" sx={{ display: { xs: 'none', sm: 'block' } }}>
             {page.subtitle}
           </Typography>
         </Stack>
       </Stack>
 
       <Box component={motion.div} whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.98 }}>
+        <IconButton
+          onClick={onOpenAddTransaction}
+          sx={{
+            display: { xs: 'flex', sm: 'none' },
+            bgcolor: 'primary.main',
+            color: 'white',
+            borderRadius: 2,
+            '&:hover': { bgcolor: 'primary.dark' },
+          }}
+        >
+          <AddRoundedIcon />
+        </IconButton>
         <Button
           variant="contained"
           endIcon={<AddRoundedIcon fontSize="small" />}
           onClick={onOpenAddTransaction}
           sx={{
+            display: { xs: 'none', sm: 'inline-flex' },
             padding: globalButtonPaddings,
             '& .MuiButton-endIcon': {
               marginInlineStart: 1,

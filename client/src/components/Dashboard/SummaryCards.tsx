@@ -38,7 +38,7 @@ export const SummaryCards = ({ income, expenses, balance }: SummaryCardsProps) =
   return (
     <Grid container spacing={2}>
       {cards.map((card, index) => (
-        <Grid key={card.key} size={{ xs: 12, md: 4 }}>
+        <Grid key={card.key} size={{ xs: card.key === 'balance' ? 12 : 6, sm: 4 }}>
           <Card
             component={motion.div}
             initial={{ opacity: 0, y: 20 }}
