@@ -63,7 +63,18 @@ export const TopHeader = ({ onOpenSidebar, onOpenAddTransaction }: TopHeaderProp
           </IconButton>
         )}
         <Stack>
-          <Typography variant="h5" fontWeight={700} sx={{ fontSize: { xs: '1.1rem', sm: '1.5rem' } }}>
+          <Typography
+            variant="h5"
+            fontWeight={800}
+            sx={{
+              fontSize: { xs: '1.1rem', sm: '1.5rem' },
+              background: 'linear-gradient(120deg, #1F7A8C 0%, #2ABDD4 100%)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              backgroundClip: 'text',
+              filter: 'drop-shadow(0 1px 6px rgba(31,122,140,0.25))',
+            }}
+          >
             {page.title}
           </Typography>
           <Typography variant="body2" color="text.secondary" sx={{ display: { xs: 'none', sm: 'block' } }}>

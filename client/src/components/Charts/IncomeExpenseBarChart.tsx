@@ -24,19 +24,19 @@ export const IncomeExpenseBarChart = ({ totalIncome, totalExpenses }: IncomeExpe
       animate={{ opacity: 1, y: 0 }}
       sx={{ borderRadius: 4.5 }}
     >
-      <CardContent>
-        <Typography variant="h6" fontWeight={700} mb={0.6}>
+      <CardContent sx={{ px: { xs: 1, md: 2 }, py: { xs: 1.5, md: 2 }, '&:last-child': { pb: { xs: 1.5, md: 2 } } }}>
+        <Typography variant="h6" fontWeight={700} mb={0.6} textAlign="center">
           השוואת הכנסות והוצאות
         </Typography>
-        <Typography variant="body2" color="text.secondary" mb={2}>
+        <Typography variant="body2" color="text.secondary" mb={2} textAlign="center">
           השוואה מהירה לחודש הנבחר
         </Typography>
-        <Box sx={{ height: { xs: 220, md: 260 }, width: '100%' }}>
+        <Box sx={{ height: { xs: 220, md: 260 }, width: '100%', direction: 'ltr' }}>
           <ResponsiveContainer width="100%" height="100%">
-            <BarChart data={data}>
+            <BarChart data={data} margin={{ top: 4, right: 8, left: 8, bottom: 0 }}>
               <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#d9e3ea" />
               <XAxis dataKey="name" tick={{ fontSize: 12 }} />
-              <YAxis tickFormatter={yTickFormatter} width={45} tick={{ fontSize: 12 }} />
+              <YAxis tickFormatter={yTickFormatter} width={58} tick={{ fontSize: 12 }} />
               <Tooltip formatter={(value) => formatCurrency(Number(value))} />
               <Bar dataKey="value" radius={[8, 8, 0, 0]} fill="#1F7A8C" />
             </BarChart>

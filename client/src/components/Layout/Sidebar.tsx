@@ -19,7 +19,7 @@ import { NavLink } from 'react-router-dom';
 
 const menuItems = [
   { label: 'סקירה חודשית', path: '/', icon: <EventNoteRoundedIcon /> },
-  { label: 'לוח בקרה', path: '/dashboard', icon: <DashboardRoundedIcon /> },
+  // { label: 'לוח בקרה', path: '/dashboard', icon: <DashboardRoundedIcon /> },
   { label: 'תנועות', path: '/transactions', icon: <ReceiptLongRoundedIcon /> },
   { label: 'הון והתחייבויות', path: '/wealth', icon: <SavingsRoundedIcon /> },
   { label: 'תכנון עתידי', path: '/future-planning', icon: <TimelineRoundedIcon /> },
@@ -38,7 +38,18 @@ export const Sidebar = ({ onNavigate }: SidebarProps) => {
           size="small"
           sx={{ width: 'fit-content', bgcolor: 'primary.soft', color: 'primary.main', fontWeight: 700 }}
         />
-        <Typography variant="h6" fontWeight={800} letterSpacing={0.4}>
+        <Typography
+          variant="h6"
+          fontWeight={800}
+          letterSpacing={0.4}
+          sx={{
+            background: 'linear-gradient(120deg, #1F7A8C 0%, #2ABDD4 100%)',
+            WebkitBackgroundClip: 'text',
+            WebkitTextFillColor: 'transparent',
+            backgroundClip: 'text',
+            filter: 'drop-shadow(0 1px 6px rgba(31,122,140,0.28))',
+          }}
+        >
           מעקב כספי
         </Typography>
         <Typography variant="body2" color="text.secondary">

@@ -34,19 +34,19 @@ export const MonthlyTrendChart = ({ data }: MonthlyTrendChartProps) => {
       animate={{ opacity: 1, y: 0 }}
       sx={{ borderRadius: 4.5 }}
     >
-      <CardContent>
-        <Typography variant="h6" fontWeight={700} mb={0.6}>
+      <CardContent sx={{ px: { xs: 1, md: 2 }, py: { xs: 1.5, md: 2 }, '&:last-child': { pb: { xs: 1.5, md: 2 } } }}>
+        <Typography variant="h6" fontWeight={700} mb={0.6} textAlign="center">
           מגמה ל-6 חודשים
         </Typography>
-        <Typography variant="body2" color="text.secondary" mb={2}>
+        <Typography variant="body2" color="text.secondary" mb={2} textAlign="center">
           מעקב אחר התפתחות הכנסות, הוצאות ויתרה לאורך זמן
         </Typography>
-        <Box sx={{ height: { xs: 240, md: 280 }, width: '100%' }}>
+        <Box sx={{ height: { xs: 240, md: 280 }, width: '100%', direction: 'ltr' }}>
           <ResponsiveContainer width="100%" height="100%">
-            <LineChart data={chartData}>
+            <LineChart data={chartData} margin={{ top: 4, right: 8, left: 8, bottom: 0 }}>
               <CartesianGrid strokeDasharray="3 3" stroke="#d9e3ea" />
               <XAxis dataKey="month" tick={{ fontSize: 11 }} minTickGap={16} />
-              <YAxis tickFormatter={yTickFormatter} width={45} tick={{ fontSize: 12 }} />
+              <YAxis tickFormatter={yTickFormatter} width={58} tick={{ fontSize: 12 }} />
               <Tooltip formatter={(value) => formatCurrency(Number(value))} />
               <Legend wrapperStyle={{ fontSize: 13 }} />
               <Line dataKey="הכנסות" stroke="#2E8B57" strokeWidth={2.6} dot={false} />

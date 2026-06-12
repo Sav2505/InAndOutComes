@@ -35,9 +35,9 @@ export const WealthDistributionChart = ({ assetsData, liabilitiesData }: WealthD
 
   return (
     <Card sx={{ borderRadius: 4.5 }}>
-      <CardContent>
-        <Stack direction={{ xs: 'column', md: 'row' }} alignItems={{ xs: 'flex-start', md: 'center' }} justifyContent="space-between" mb={2} gap={1}>
-          <div>
+      <CardContent sx={{ px: { xs: 1, md: 2 }, py: { xs: 1.5, md: 2 }, '&:last-child': { pb: { xs: 1.5, md: 2 } } }}>
+        <Stack direction={{ xs: 'column', md: 'row' }} alignItems="center" justifyContent="space-between" mb={2} gap={1}>
+          <div style={{ textAlign: 'center', flex: 1 }}>
             <Typography variant="h6" fontWeight={700}>גרף התפלגות</Typography>
             <Typography variant="body2" color="text.secondary">חלוקת יתרות לפי סוג</Typography>
           </div>
@@ -62,7 +62,7 @@ export const WealthDistributionChart = ({ assetsData, liabilitiesData }: WealthD
           </Stack>
         ) : (
           <Stack direction={{ xs: 'column', sm: 'row' }} alignItems="center" gap={1}>
-            <Box sx={{ width: '100%', height: { xs: 220, md: 240 } }}>
+            <Box sx={{ width: '100%', height: { xs: 220, md: 240 }, direction: 'ltr' }}>
               <ResponsiveContainer width="100%" height="100%">
                 <PieChart>
                   <Pie data={activeData} dataKey="value" nameKey="name" outerRadius={outerRadius} innerRadius={innerRadius}>
@@ -74,17 +74,17 @@ export const WealthDistributionChart = ({ assetsData, liabilitiesData }: WealthD
                 </PieChart>
               </ResponsiveContainer>
             </Box>
-            <Stack sx={{ width: { xs: '100%', sm: 'auto' }, minWidth: { sm: 160 } }} spacing={0.8}>
+            <Stack sx={{ width: { xs: '100%', sm: 'auto' }, minWidth: { sm: 160 } }} spacing={0.8} alignItems="center">
               {activeData.map((entry) => {
                 const ratio = total > 0 ? Math.round((entry.value / total) * 100) : 0;
 
                 return (
-                  <Stack key={entry.name} direction="row" alignItems="center" justifyContent="space-between" gap={1}>
+                  <Stack key={entry.name} direction="row" alignItems="center" gap={1.5}>
                     <Stack direction="row" alignItems="center" gap={0.7}>
                       <span style={{ width: 10, height: 10, borderRadius: 9999, background: entry.color, display: 'inline-block' }} />
                       <Typography variant="body2">{entry.name}</Typography>
                     </Stack>
-                    <Typography variant="caption" color="text.secondary">{ratio}%</Typography>
+                    <Typography variant="caption" color="text.secondary" fontWeight={600}>{ratio}%</Typography>
                   </Stack>
                 );
               })}

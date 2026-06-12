@@ -12,21 +12,21 @@ const yTickFormatter = (value: number) =>
 export const AssetLiquidityChart = ({ data }: AssetLiquidityChartProps) => {
   return (
     <Card sx={{ borderRadius: 4.5 }}>
-      <CardContent>
-        <Typography variant="h6" fontWeight={700} mb={0.6}>נזילות הון לפי זמן</Typography>
-        <Typography variant="body2" color="text.secondary" mb={2}>כמה מההון זמין עכשיו וכמה דורש זמן</Typography>
+      <CardContent sx={{ px: { xs: 1, md: 2 }, py: { xs: 1.5, md: 2 }, '&:last-child': { pb: { xs: 1.5, md: 2 } } }}>
+        <Typography variant="h6" fontWeight={700} mb={0.6} textAlign="center">נזילות הון לפי זמן</Typography>
+        <Typography variant="body2" color="text.secondary" mb={2} textAlign="center">כמה מההון זמין עכשיו וכמה דורש זמן</Typography>
 
         {data.length === 0 ? (
           <Stack justifyContent="center" alignItems="center" sx={{ height: 220 }}>
             <Typography color="text.secondary">אין נתונים להצגה.</Typography>
           </Stack>
         ) : (
-          <Box sx={{ height: { xs: 220, md: 260 }, width: '100%' }}>
+          <Box sx={{ height: { xs: 220, md: 260 }, width: '100%', direction: 'ltr' }}>
             <ResponsiveContainer width="100%" height="100%">
-              <BarChart data={data}>
+              <BarChart data={data} margin={{ top: 4, right: 8, left: 8, bottom: 0 }}>
                 <CartesianGrid strokeDasharray="3 3" stroke="#d9e3ea" />
                 <XAxis dataKey="label" tick={{ fontSize: 12 }} />
-                <YAxis tickFormatter={yTickFormatter} width={45} tick={{ fontSize: 12 }} />
+                <YAxis tickFormatter={yTickFormatter} width={58} tick={{ fontSize: 12 }} />
                 <Tooltip formatter={(value) => formatCurrency(Number(value))} />
                 <Bar dataKey="value" radius={[8, 8, 0, 0]}>
                   {data.map((entry) => (

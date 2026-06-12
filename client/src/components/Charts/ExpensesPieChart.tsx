@@ -22,11 +22,11 @@ export const ExpensesPieChart = ({ data }: ExpensesPieChartProps) => {
       animate={{ opacity: 1, y: 0 }}
       sx={{ borderRadius: 4.5 }}
     >
-      <CardContent>
-        <Typography variant="h6" fontWeight={700} mb={0.6}>
+      <CardContent sx={{ px: { xs: 1, md: 2 }, py: { xs: 1.5, md: 2 }, '&:last-child': { pb: { xs: 1.5, md: 2 } } }}>
+        <Typography variant="h6" fontWeight={700} mb={0.6} textAlign="center">
           הוצאות לפי קטגוריה
         </Typography>
-        <Typography variant="body2" color="text.secondary" mb={2}>
+        <Typography variant="body2" color="text.secondary" mb={2} textAlign="center">
           חלוקת ההוצאות בחודש הנבחר
         </Typography>
 
@@ -35,7 +35,7 @@ export const ExpensesPieChart = ({ data }: ExpensesPieChartProps) => {
             <Typography color="text.secondary">אין נתוני הוצאות לחודש זה.</Typography>
           </Stack>
         ) : (
-          <Box sx={{ height: { xs: 220, md: 260 }, width: '100%' }}>
+          <Box sx={{ height: { xs: 220, md: 260 }, width: '100%', direction: 'ltr' }}>
             <ResponsiveContainer width="100%" height="100%">
               <PieChart>
                 <Pie data={data} dataKey="value" nameKey="name" outerRadius={outerRadius} innerRadius={innerRadius}>

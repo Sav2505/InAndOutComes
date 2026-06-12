@@ -41,8 +41,8 @@ export const AppLayout = ({ onOpenAddTransaction }: AppLayoutProps) => {
           direction: 'rtl',
           flexGrow: 1,
           minWidth: 0,
-          px: { xs: 1.5, md: 3.5 },
-          py: { xs: 2, md: 3 },
+          px: { xs: 0.5, md: 3.5 },
+          py: { xs: 1, md: 3 },
           mr: { lg: `${drawerWidth}px` },
           width: { lg: `calc(100% - ${drawerWidth}px)` },
           overflowX: 'hidden',
@@ -50,8 +50,8 @@ export const AppLayout = ({ onOpenAddTransaction }: AppLayoutProps) => {
       >
         <Box
           sx={{
-            borderRadius: { xs: 3, md: 5 },
-            p: { xs: 1.5, md: 2.5 },
+            borderRadius: { xs: 2, md: 5 },
+            p: { xs: 1, md: 2.5 },
             bgcolor: '#ffffff',
             border: '1px solid rgba(28, 42, 57, 0.08)',
           }}

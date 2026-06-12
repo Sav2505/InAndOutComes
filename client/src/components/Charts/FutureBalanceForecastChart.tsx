@@ -31,17 +31,17 @@ export const FutureBalanceForecastChart = ({ data }: FutureBalanceForecastChartP
       animate={{ opacity: 1, y: 0 }}
       sx={{ borderRadius: 4.5 }}
     >
-      <CardContent>
-        <Typography variant="h6" fontWeight={700} mb={0.6}>
+      <CardContent sx={{ px: { xs: 1, md: 2 }, py: { xs: 1.5, md: 2 }, '&:last-child': { pb: { xs: 1.5, md: 2 } } }}>
+        <Typography variant="h6" fontWeight={700} mb={0.6} textAlign="center">
           צפי יתרות עתידי
         </Typography>
-        <Typography variant="body2" color="text.secondary" mb={2}>
+        <Typography variant="body2" color="text.secondary" mb={2} textAlign="center">
           התפתחות ההון החודשי עד 20 שנה קדימה, כולל הפקדות לנכסים, צבירה שנתית והשפעת התחייבויות
         </Typography>
 
-        <Box sx={{ height: { xs: 280, sm: 340, md: 380 }, width: '100%' }}>
+        <Box sx={{ height: { xs: 280, sm: 340, md: 380 }, width: '100%', direction: 'ltr' }}>
           <ResponsiveContainer width="100%" height="100%">
-          <AreaChart data={chartData} margin={{ top: 8, right: 18, left: 0, bottom: 0 }}>
+          <AreaChart data={chartData} margin={{ top: 8, right: 8, left: 8, bottom: 0 }}>
             <defs>
               <linearGradient id="futureBalanceGradient" x1="0" y1="0" x2="0" y2="1">
                 <stop offset="5%" stopColor="#1F7A8C" stopOpacity={0.35} />
