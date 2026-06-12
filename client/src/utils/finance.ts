@@ -97,7 +97,6 @@ export const getMonthlyTrend = (transactions: Transaction[], monthsBack = 6) => 
 
   return Array.from({ length: monthsBack }, (_, index) => {
     const month = now.subtract(monthsBack - index - 1, 'month');
-    const monthKey = month.format('YYYY-MM');
     const monthLabel = month.format('MMM YY');
 
     const income = transactions
