@@ -1,0 +1,35 @@
+[
+  {
+    "id": "inc-001",
+    "title": "משכורת ראשית",
+    "amount": 5200,
+    "type": "income",
+    "category": "משכורת",
+    "date": "2026-03-01",
+    "isRecurring": true,
+    "recurringType": "monthly",
+    "notes": "הכנסה חודשית קבועה"
+  },
+  {
+    "id": "inc-002",
+    "title": "עבודת פרילנס",
+    "amount": 900,
+    "type": "income",
+    "category": "פרילנס",
+    "date": "2026-03-05",
+    "isRecurring": false,
+    "recurringType": "none",
+    "notes": "פרויקט חד פעמי"
+  },
+  {
+    "id": "inc-003",
+    "title": "דיבידנד",
+    "amount": 240,
+    "type": "income",
+    "category": "השקעות",
+    "date": "2026-02-18",
+    "isRecurring": true,
+    "recurringType": "yearly",
+    "notes": "תשלום רבעוני"
+  }
+]

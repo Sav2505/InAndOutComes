@@ -1,0 +1,57 @@
+[
+  {
+    "id": "exp-001",
+    "title": "שכר דירה",
+    "amount": 1650,
+    "type": "expense",
+    "category": "housing",
+    "date": "2026-03-02",
+    "isRecurring": true,
+    "recurringType": "monthly",
+    "notes": "תשלום חודשי לדירה"
+  },
+  {
+    "id": "exp-002",
+    "title": "סופרמרקט",
+    "amount": 320,
+    "type": "expense",
+    "category": "food",
+    "date": "2026-03-06",
+    "isRecurring": false,
+    "recurringType": "none",
+    "notes": "קניות שבועיות"
+  },
+  {
+    "id": "exp-003",
+    "title": "חופשי חודשי",
+    "amount": 110,
+    "type": "expense",
+    "category": "transportation",
+    "date": "2026-03-04",
+    "isRecurring": true,
+    "recurringType": "monthly",
+    "notes": "תחבורה ציבורית"
+  },
+  {
+    "id": "exp-004",
+    "title": "שירותי סטרימינג",
+    "amount": 45,
+    "type": "expense",
+    "category": "subscriptions",
+    "date": "2026-03-03",
+    "isRecurring": true,
+    "recurringType": "monthly",
+    "notes": "מוזיקה וסרטים"
+  },
+  {
+    "id": "exp-005",
+    "title": "בדיקת שיניים",
+    "amount": 180,
+    "type": "expense",
+    "category": "health",
+    "date": "2026-02-25",
+    "isRecurring": false,
+    "recurringType": "none",
+    "notes": "בדיקה תקופתית"
+  }
+]

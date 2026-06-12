@@ -1,0 +1,47 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Manrope:wght@500;600;700;800&display=swap');
+
+:root {
+  --app-bg: #f4f6f8;
+  --card-bg: #ffffff;
+  --primary: #1f7a8c;
+  --income: #2e8b57;
+  --expense: #cc444b;
+  --text-main: #1c2a39;
+  --text-muted: #617283;
+  font-family: 'Manrope', 'DM Sans', 'Segoe UI', sans-serif;
+  line-height: 1.5;
+  font-weight: 500;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  color: var(--text-main);
+  background:
+    linear-gradient(180deg, #f7f9fb 0%, #f3f6f9 100%);
+}
+
+#root {
+  min-height: 100vh;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(28, 42, 57, 0.2);
+  border-radius: 999px;
+}
+
+

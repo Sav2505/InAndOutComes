@@ -1,0 +1,328 @@
+{
+  "categories": [
+    {
+      "id": "housing",
+      "name": "דיור",
+      "color": "#1F7A8C"
+    },
+    {
+      "id": "food",
+      "name": "מזון",
+      "color": "#3BA99C"
+    },
+    {
+      "id": "transportation",
+      "name": "תחבורה",
+      "color": "#4E79A7"
+    },
+    {
+      "id": "subscriptions",
+      "name": "מנויים",
+      "color": "#76B7B2"
+    },
+    {
+      "id": "entertainment",
+      "name": "בילוי",
+      "color": "#59A14F"
+    },
+    {
+      "id": "health",
+      "name": "בריאות",
+      "color": "#EDC948"
+    },
+    {
+      "id": "shopping",
+      "name": "קניות",
+      "color": "#F28E2B"
+    },
+    {
+      "id": "other",
+      "name": "אחר",
+      "color": "#9C755F"
+    }
+  ],
+  "transactions": [
+    {
+      "title": "משכורת ראשית",
+      "amount": 24000,
+      "type": "income",
+      "category": "משכורת",
+      "date": "2026-03-01",
+      "isRecurring": true,
+      "recurringType": "monthly",
+      "notes": "הכנסה חודשית",
+      "id": "inc-001"
+    },
+    {
+      "id": "inc-003",
+      "title": "דיבידנד",
+      "amount": 240,
+      "type": "income",
+      "category": "השקעות",
+      "date": "2026-02-18",
+      "isRecurring": true,
+      "recurringType": "yearly",
+      "notes": "תשלום רבעוני"
+    },
+    {
+      "title": "שכר דירה",
+      "amount": 6000,
+      "type": "expense",
+      "category": "housing",
+      "date": "2026-03-01",
+      "isRecurring": true,
+      "recurringType": "monthly",
+      "notes": "תשלום חודשי לדירה",
+      "id": "exp-001"
+    },
+    {
+      "id": "exp-005",
+      "title": "בדיקת שיניים",
+      "amount": 180,
+      "type": "expense",
+      "category": "health",
+      "date": "2026-02-25",
+      "isRecurring": false,
+      "recurringType": "none",
+      "notes": "בדיקה תקופתית"
+    },
+    {
+      "title": "ארנונה",
+      "amount": 732,
+      "type": "expense",
+      "category": "housing",
+      "date": "2026-03-02",
+      "isRecurring": true,
+      "recurringType": "monthly",
+      "notes": "תשלום ארנונה כל חודשיים",
+      "id": "c6694a5e-5406-4f57-aa08-1b3831d1a550"
+    },
+    {
+      "title": "דלק",
+      "amount": 1000,
+      "type": "expense",
+      "category": "transportation",
+      "date": "2026-03-01",
+      "isRecurring": true,
+      "recurringType": "monthly",
+      "notes": "הוצאות דלק",
+      "id": "984d0c0c-ca8d-4d37-ba60-7eee1066cbad"
+    },
+    {
+      "id": "d65eedc7-5bea-4aa1-b79d-0256cb00ce9c",
+      "title": "FreeTv",
+      "amount": 40,
+      "type": "expense",
+      "category": "subscriptions",
+      "date": "2026-03-10",
+      "isRecurring": true,
+      "recurringType": "monthly",
+      "notes": "מנוי לFreeTv"
+    },
+    {
+      "id": "d0a3ccd4-3182-40c7-b0db-8dfb22c6f95e",
+      "title": "חשבון חשמל",
+      "amount": 400,
+      "type": "expense",
+      "category": "housing",
+      "date": "2026-03-01",
+      "isRecurring": true,
+      "recurringType": "monthly"
+    },
+    {
+      "id": "caed1f74-6326-45b9-8956-0093bd14664b",
+      "title": "חשבון מים",
+      "amount": 200,
+      "type": "expense",
+      "category": "housing",
+      "date": "2026-03-01",
+      "isRecurring": true,
+      "recurringType": "monthly"
+    },
+    {
+      "id": "739b672b-2088-40f7-8ccb-167bcf44ac7b",
+      "title": "חשבון גז",
+      "amount": 60,
+      "type": "expense",
+      "category": "housing",
+      "date": "2026-03-01",
+      "isRecurring": true,
+      "recurringType": "monthly"
+    },
+    {
+      "id": "a57a609f-4c10-450a-a806-25bd5d0be4d5",
+      "title": "אינטרנט Hot",
+      "amount": 95,
+      "type": "expense",
+      "category": "subscriptions",
+      "date": "2026-03-01",
+      "isRecurring": true,
+      "recurringType": "monthly"
+    },
+    {
+      "id": "11305574-c304-4bc6-bd79-1241623cee6c",
+      "title": "ועד בית",
+      "amount": 305,
+      "type": "expense",
+      "category": "housing",
+      "date": "2026-03-02",
+      "isRecurring": true,
+      "recurringType": "monthly"
+    },
+    {
+      "title": "הלוואת רכב",
+      "amount": 1132,
+      "type": "expense",
+      "category": "other",
+      "date": "2026-03-10",
+      "isRecurring": true,
+      "recurringType": "monthly",
+      "id": "e2763777-46a3-45f7-bc3b-2c32df420829"
+    },
+    {
+      "title": "קניות סופר",
+      "amount": 1800,
+      "type": "expense",
+      "category": "food",
+      "date": "2026-03-10",
+      "isRecurring": true,
+      "recurringType": "monthly",
+      "id": "c5a4542b-7ae8-4c84-b887-bd1a5b814bd8"
+    },
+    {
+      "id": "7f1d9cc4-3a26-472e-966e-cd3889384da3",
+      "title": "Apple Music",
+      "amount": 34,
+      "type": "expense",
+      "category": "subscriptions",
+      "date": "2026-03-10",
+      "isRecurring": true,
+      "recurringType": "monthly"
+    },
+    {
+      "id": "8e69b62a-bc25-41ed-a170-1a5484951f69",
+      "title": "ICloud",
+      "amount": 12,
+      "type": "expense",
+      "category": "subscriptions",
+      "date": "2026-03-10",
+      "isRecurring": true,
+      "recurringType": "monthly"
+    },
+    {
+      "id": "e005b197-7c9f-451b-b795-839e0331286f",
+      "title": "בילויים",
+      "amount": 1000,
+      "type": "expense",
+      "category": "entertainment",
+      "date": "2026-03-31",
+      "isRecurring": true,
+      "recurringType": "monthly"
+    },
+    {
+      "id": "2f6207e5-11f3-47b7-90d4-b8fba3766394",
+      "title": "שולחן עבודה",
+      "amount": 650,
+      "type": "expense",
+      "category": "shopping",
+      "date": "2026-03-05",
+      "isRecurring": false,
+      "recurringType": "none",
+      "notes": "קניית שולחן עבודה לבית"
+    }
+  ],
+  "assets": [
+    {
+      "name": "עו''ש",
+      "institution": "בנק לאומי",
+      "kind": "checking",
+      "currentBalance": 22000,
+      "liquidityTier": "immediate",
+      "liquidityDays": 0,
+      "lastUpdated": "2026-03-15",
+      "id": "30890578-3cae-4b00-8281-9ea445a3ea87",
+      "monthlyContribution": 0,
+      "annualReturnRate": 0
+    },
+    {
+      "name": "קרן השתלמות",
+      "institution": "מיטב ד''ש",
+      "kind": "pension",
+      "currentBalance": 190745,
+      "liquidityTier": "months_6",
+      "liquidityDays": 180,
+      "lastUpdated": "2026-03-15",
+      "id": "70281b7a-42de-4079-b574-3b4b2bc42488",
+      "monthlyContribution": 2650,
+      "annualReturnRate": 4.2
+    },
+    {
+      "name": "קופת גמל להשקעה",
+      "institution": "הראל",
+      "kind": "pension",
+      "currentBalance": 65000,
+      "liquidityTier": "days_30",
+      "liquidityDays": 30,
+      "lastUpdated": "2026-03-15",
+      "id": "682f40a9-7841-44c3-b690-515becfad3e6",
+      "monthlyContribution": 1500,
+      "annualReturnRate": 6.5
+    },
+    {
+      "id": "073d0d17-8fa5-4575-92c4-55841e23eaca",
+      "name": "השקעה ששי",
+      "institution": "ששי יזמות",
+      "kind": "investment",
+      "currentBalance": 500000,
+      "liquidityTier": "over_6_months",
+      "liquidityDays": 365,
+      "lastUpdated": "2026-03-15",
+      "monthlyContribution": 0,
+      "annualReturnRate": 0
+    },
+    {
+      "id": "1a239f07-1188-4a49-8e3e-a4c6acf02ec9",
+      "name": "השקעה ששי אצל אבא",
+      "institution": "אבא",
+      "kind": "investment",
+      "currentBalance": 50000,
+      "liquidityTier": "months_6",
+      "liquidityDays": 180,
+      "lastUpdated": "2026-03-15",
+      "monthlyContribution": 0,
+      "annualReturnRate": 0
+    },
+    {
+      "id": "bfdac73a-c6c6-487e-96b3-5462aa15f13f",
+      "name": "קופת גמל להשקעה",
+      "institution": "אלטשולר - S&P",
+      "kind": "pension",
+      "currentBalance": 111000,
+      "liquidityTier": "days_7",
+      "liquidityDays": 7,
+      "lastUpdated": "2026-03-15"
+    },
+    {
+      "id": "954ada1a-deca-40d6-9530-933897334463",
+      "name": "קופה בבנק אוצר החייל",
+      "institution": "אוצר החייל",
+      "kind": "savings",
+      "currentBalance": 16000,
+      "liquidityTier": "days_7",
+      "liquidityDays": 7,
+      "lastUpdated": "2026-03-15"
+    },
+    {
+      "id": "14268e9a-05c2-450f-a954-6b93e4f016f0",
+      "name": "עו''ש - שחר",
+      "institution": "בנק אוצר החייל",
+      "kind": "checking",
+      "currentBalance": 4000,
+      "liquidityTier": "immediate",
+      "liquidityDays": 0,
+      "lastUpdated": "2026-03-15"
+    }
+  ],
+  "liabilities": [],
+  "$schema": "./node_modules/json-server/schema.json"
+}

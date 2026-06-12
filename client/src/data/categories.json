@@ -1,0 +1,10 @@
+[
+  { "id": "housing", "name": "דיור", "color": "#1F7A8C" },
+  { "id": "food", "name": "מזון", "color": "#3BA99C" },
+  { "id": "transportation", "name": "תחבורה", "color": "#4E79A7" },
+  { "id": "subscriptions", "name": "מנויים", "color": "#76B7B2" },
+  { "id": "entertainment", "name": "בילוי", "color": "#59A14F" },
+  { "id": "health", "name": "בריאות", "color": "#EDC948" },
+  { "id": "shopping", "name": "קניות", "color": "#F28E2B" },
+  { "id": "other", "name": "אחר", "color": "#9C755F" }
+]

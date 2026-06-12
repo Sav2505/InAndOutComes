@@ -1,0 +1,1 @@
+export const globalButtonPaddings = "6px 12px 6px 0px";
