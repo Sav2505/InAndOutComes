@@ -1,7 +1,9 @@
 import { Router } from 'express';
+import { requireAuth } from '../middleware/auth.js';
 import { pool } from '../db.js';
 
 export const transactionsRouter = Router();
+transactionsRouter.use(requireAuth);
 
 interface TransactionRow {
   id: string;
@@ -27,9 +29,10 @@ const toClient = (row: TransactionRow) => ({
   ...(row.notes != null ? { notes: row.notes } : {}),
 });
 
-transactionsRouter.get('/', async (_req, res) => {
+transactionsRouter.get('/', async (req, res) => {
   const { rows } = await pool.query<TransactionRow>(
-    'SELECT * FROM transactions ORDER BY date DESC',
+    'SELECT * FROM transactions WHERE user_id = $1 ORDER BY date DESC',
+    [req.user.id],
   );
   res.json(rows.map(toClient));
 });
@@ -49,10 +52,10 @@ transactionsRouter.post('/', async (req, res) => {
     };
 
   const { rows } = await pool.query<TransactionRow>(
-    `INSERT INTO transactions (id, title, amount, type, category, date, is_recurring, recurring_type, notes)
-     VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9)
+    `INSERT INTO transactions (id, user_id, title, amount, type, category, date, is_recurring, recurring_type, notes)
+     VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10)
      RETURNING *`,
-    [id, title, amount, type, category, date, isRecurring, recurringType, notes ?? null],
+    [id, req.user.id, title, amount, type, category, date, isRecurring, recurringType, notes ?? null],
   );
   res.status(201).json(toClient(rows[0]));
 });
@@ -74,15 +77,15 @@ transactionsRouter.put('/:id', async (req, res) => {
     `UPDATE transactions
      SET title=$1, amount=$2, type=$3, category=$4, date=$5,
          is_recurring=$6, recurring_type=$7, notes=$8
-     WHERE id=$9
+     WHERE id=$9 AND user_id=$10
      RETURNING *`,
-    [title, amount, type, category, date, isRecurring, recurringType, notes ?? null, req.params.id],
+    [title, amount, type, category, date, isRecurring, recurringType, notes ?? null, req.params.id, req.user.id],
   );
   if (rows.length === 0) return res.status(404).json({ error: 'Not found' });
   res.json(toClient(rows[0]));
 });
 
 transactionsRouter.delete('/:id', async (req, res) => {
-  await pool.query('DELETE FROM transactions WHERE id=$1', [req.params.id]);
+  await pool.query('DELETE FROM transactions WHERE id=$1 AND user_id=$2', [req.params.id, req.user.id]);
   res.status(204).end();
 });

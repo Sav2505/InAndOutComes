@@ -5,6 +5,7 @@ import {
   Card,
   CardContent,
   Chip,
+  CircularProgress,
   Dialog,
   DialogActions,
   DialogContent,
@@ -188,6 +189,8 @@ export const WealthManager = () => {
   const [liabilityForm, setLiabilityForm] = useState<LiabilityForm>(createEmptyLiabilityForm);
   const [assetDialogOpen, setAssetDialogOpen] = useState(false);
   const [liabilityDialogOpen, setLiabilityDialogOpen] = useState(false);
+  const [savingAsset, setSavingAsset] = useState(false);
+  const [savingLiability, setSavingLiability] = useState(false);
 
   const totalAssets = useMemo(() => getAssetTotals(assets), [assets]);
   const totalLiabilities = useMemo(() => getLiabilityTotals(liabilities), [liabilities]);
@@ -260,6 +263,9 @@ export const WealthManager = () => {
       return;
     }
 
+    setSavingAsset(true);
+    try {
+
     const payload = {
       name: assetForm.name.trim(),
       institution: assetForm.institution.trim() || 'לא צוין',
@@ -280,12 +286,18 @@ export const WealthManager = () => {
     }
 
     setAssetDialogOpen(false);
+    } finally {
+      setSavingAsset(false);
+    }
   };
 
   const saveLiability = async () => {
     if (liabilityForm.name.trim().length < 2 || liabilityForm.remainingAmount < 0) {
       return;
     }
+
+    setSavingLiability(true);
+    try {
 
     const payload = {
       name: liabilityForm.name.trim(),
@@ -306,6 +318,9 @@ export const WealthManager = () => {
     }
 
     setLiabilityDialogOpen(false);
+    } finally {
+      setSavingLiability(false);
+    }
   };
 
   return (
@@ -631,11 +646,10 @@ export const WealthManager = () => {
           <Button onClick={() => setAssetDialogOpen(false)}>ביטול</Button>
           <Button
             variant="contained"
-            onClick={() => {
-              void saveAsset();
-            }}
+            disabled={savingAsset}
+            onClick={() => { void saveAsset(); }}
           >
-            שמירה
+            {savingAsset ? <CircularProgress size={20} color="inherit" /> : 'שמירה'}
           </Button>
         </DialogActions>
       </Dialog>
@@ -730,11 +744,10 @@ export const WealthManager = () => {
           <Button onClick={() => setLiabilityDialogOpen(false)}>ביטול</Button>
           <Button
             variant="contained"
-            onClick={() => {
-              void saveLiability();
-            }}
+            disabled={savingLiability}
+            onClick={() => { void saveLiability(); }}
           >
-            שמירה
+            {savingLiability ? <CircularProgress size={20} color="inherit" /> : 'שמירה'}
           </Button>
         </DialogActions>
       </Dialog>

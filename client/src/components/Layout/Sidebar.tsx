@@ -1,9 +1,11 @@
 import EventNoteRoundedIcon from '@mui/icons-material/EventNoteRounded';
+import LogoutRoundedIcon from '@mui/icons-material/LogoutRounded';
 import ReceiptLongRoundedIcon from '@mui/icons-material/ReceiptLongRounded';
 import SavingsRoundedIcon from '@mui/icons-material/SavingsRounded';
 import TimelineRoundedIcon from '@mui/icons-material/TimelineRounded';
 import {
   Box,
+  Button,
   Chip,
   Divider,
   List,
@@ -15,6 +17,7 @@ import {
 } from '@mui/material';
 import { motion } from 'framer-motion';
 import { NavLink } from 'react-router-dom';
+import { getAuthUser, logout } from '../../hooks/useAuth';
 
 const menuItems = [
   { label: 'סקירה חודשית', path: '/', icon: <EventNoteRoundedIcon /> },
@@ -29,6 +32,13 @@ interface SidebarProps {
 }
 
 export const Sidebar = ({ onNavigate }: SidebarProps) => {
+  const user = getAuthUser();
+
+  const handleLogout = () => {
+    logout();
+    window.location.reload();
+  };
+
   return (
     <Box sx={{ height: '100%', px: 2, py: 3 }}>
       <Stack component={motion.div} initial={{ opacity: 0, y: -8 }} animate={{ opacity: 1, y: 0 }} spacing={0.8}>
@@ -102,9 +112,26 @@ export const Sidebar = ({ onNavigate }: SidebarProps) => {
       </List>
 
       <Divider sx={{ my: 2 }} />
-      <Typography variant="caption" color="text.secondary">
-        עדכון תנועות באופן קבוע נותן תמונה חודשית מדויקת יותר.
-      </Typography>
+      <Stack spacing={1}>
+        {user && (
+          <Typography variant="body2" fontWeight={600} color="text.secondary" sx={{ px: 1 }}>
+            שלום, {user.name}
+          </Typography>
+        )}
+        <Button
+          size="small"
+          color="error"
+          variant="text"
+          startIcon={<LogoutRoundedIcon fontSize="small" />}
+          onClick={handleLogout}
+          sx={{ justifyContent: 'flex-start', px: 1 }}
+        >
+          התנתקות
+        </Button>
+        <Typography variant="caption" color="text.secondary">
+          עדכון תנועות באופן קבוע נותן תמונה חודשית מדויקת יותר.
+        </Typography>
+      </Stack>
     </Box>
   );
 };

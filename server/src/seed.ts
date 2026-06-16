@@ -4,6 +4,13 @@ import { pool } from './db.js';
 // ─── DDL ───────────────────────────────────────────────────────────────────
 
 const createTables = `
+  CREATE TABLE IF NOT EXISTS users (
+    id            TEXT PRIMARY KEY,
+    name          TEXT NOT NULL,
+    username      TEXT NOT NULL UNIQUE,
+    password_hash TEXT NOT NULL
+  );
+
   CREATE TABLE IF NOT EXISTS categories (
     id    TEXT PRIMARY KEY,
     name  TEXT NOT NULL,
@@ -12,6 +19,7 @@ const createTables = `
 
   CREATE TABLE IF NOT EXISTS transactions (
     id             TEXT PRIMARY KEY,
+    user_id        TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
     title          TEXT NOT NULL,
     amount         NUMERIC(14,2) NOT NULL,
     type           TEXT NOT NULL CHECK (type IN ('income','expense')),
@@ -24,6 +32,7 @@ const createTables = `
 
   CREATE TABLE IF NOT EXISTS assets (
     id                   TEXT PRIMARY KEY,
+    user_id              TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
     name                 TEXT NOT NULL,
     institution          TEXT NOT NULL,
     kind                 TEXT NOT NULL CHECK (kind IN ('checking','savings','investment','pension','cash','other')),
@@ -38,6 +47,7 @@ const createTables = `
 
   CREATE TABLE IF NOT EXISTS liabilities (
     id               TEXT PRIMARY KEY,
+    user_id          TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
     name             TEXT NOT NULL,
     lender           TEXT NOT NULL,
     kind             TEXT NOT NULL CHECK (kind IN ('loan','mortgage','credit','other')),
@@ -50,7 +60,25 @@ const createTables = `
   );
 `;
 
-// ─── Seed data (from db.json) ──────────────────────────────────────────────
+// ─── Seed data ────────────────────────────────────────────────────────────
+
+// SHA-256 hashes of the passwords (computed via Node crypto)
+const users = [
+  {
+    id: 'user-shachar-dan',
+    name: 'שחר ודן',
+    username: 'ShacharAndDanLove',
+    password_hash: 'cfd485f2c7efeaa7c71a95a0ff641fd771d0e647d4e7ef5eb818c6749c6dde08',
+  },
+  {
+    id: 'user-nurit',
+    name: 'נורית',
+    username: 'Nurit2509',
+    password_hash: '14a3dda5d6bc8c39da66b509a588a56f33e1021f39f054193248c77ebf61cd01',
+  },
+];
+
+const SHACHAR_DAN_ID = 'user-shachar-dan';
 
 const categories = [
   { id: 'housing',        name: 'דיור',     color: '#1F7A8C' },
@@ -102,8 +130,25 @@ async function seed() {
   try {
     await client.query('BEGIN');
 
+    // 1. Drop old tables that lack user_id (they will be recreated)
+    console.log('Dropping old tables without user_id...');
+    await client.query(`
+      DROP TABLE IF EXISTS transactions;
+      DROP TABLE IF EXISTS assets;
+      DROP TABLE IF EXISTS liabilities;
+    `);
+
     console.log('Creating tables...');
     await client.query(createTables);
+
+    console.log('Seeding users...');
+    for (const u of users) {
+      await client.query(
+        `INSERT INTO users (id, name, username, password_hash) VALUES ($1,$2,$3,$4)
+         ON CONFLICT (id) DO UPDATE SET name=EXCLUDED.name, username=EXCLUDED.username, password_hash=EXCLUDED.password_hash`,
+        [u.id, u.name, u.username, u.password_hash],
+      );
+    }
 
     console.log('Seeding categories...');
     for (const c of categories) {
@@ -116,19 +161,19 @@ async function seed() {
     console.log('Seeding transactions...');
     for (const t of transactions) {
       await client.query(
-        `INSERT INTO transactions (id, title, amount, type, category, date, is_recurring, recurring_type, notes)
-         VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9) ON CONFLICT (id) DO NOTHING`,
-        [t.id, t.title, t.amount, t.type, t.category, t.date, t.isRecurring, t.recurringType, t.notes],
+        `INSERT INTO transactions (id, user_id, title, amount, type, category, date, is_recurring, recurring_type, notes)
+         VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10) ON CONFLICT (id) DO NOTHING`,
+        [t.id, SHACHAR_DAN_ID, t.title, t.amount, t.type, t.category, t.date, t.isRecurring, t.recurringType, t.notes],
       );
     }
 
     console.log('Seeding assets...');
     for (const a of assets) {
       await client.query(
-        `INSERT INTO assets (id, name, institution, kind, current_balance, monthly_contribution,
+        `INSERT INTO assets (id, user_id, name, institution, kind, current_balance, monthly_contribution,
           annual_return_rate, liquidity_tier, liquidity_days, last_updated, notes)
-         VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11) ON CONFLICT (id) DO NOTHING`,
-        [a.id, a.name, a.institution, a.kind, a.currentBalance, a.monthlyContribution,
+         VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12) ON CONFLICT (id) DO NOTHING`,
+        [a.id, SHACHAR_DAN_ID, a.name, a.institution, a.kind, a.currentBalance, a.monthlyContribution,
           a.annualReturnRate, a.liquidityTier, a.liquidityDays, a.lastUpdated, a.notes],
       );
     }

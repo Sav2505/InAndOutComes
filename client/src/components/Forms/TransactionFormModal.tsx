@@ -2,6 +2,7 @@ import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import {
   Box,
   Button,
+  CircularProgress,
   Dialog,
   DialogContent,
   DialogTitle,
@@ -60,6 +61,7 @@ export const TransactionFormModal = ({
   onSubmit,
 }: TransactionFormModalProps) => {
   const [values, setValues] = useState<TransactionFormValues>(getInitialValues);
+  const [saving, setSaving] = useState(false);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
@@ -277,16 +279,23 @@ export const TransactionFormModal = ({
             </Button>
             <Button
               variant="contained"
-              disabled={!canSubmit}
-              onClick={() => {
-                onSubmit({
-                  ...values,
-                  notes: values.notes?.trim() || undefined,
-                  recurringType: values.isRecurring ? values.recurringType : 'none',
-                });
+              disabled={!canSubmit || saving}
+              onClick={async () => {
+                setSaving(true);
+                try {
+                  await onSubmit({
+                    ...values,
+                    notes: values.notes?.trim() || undefined,
+                    recurringType: values.isRecurring ? values.recurringType : 'none',
+                  });
+                } finally {
+                  setSaving(false);
+                }
               }}
             >
-              {editTarget ? 'שמירת שינויים' : 'הוספת תנועה'}
+              {saving ? (
+                <CircularProgress size={20} color="inherit" />
+              ) : editTarget ? 'שמירת שינויים' : 'הוספת תנועה'}
             </Button>
           </Stack>
         </Stack>

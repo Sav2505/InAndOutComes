@@ -8,6 +8,12 @@ import type {
   TransactionType,
 } from '../types';
 
+const generateId = (): string =>
+  'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
+    const r = (Math.random() * 16) | 0;
+    return (c === 'x' ? r : (r & 0x3) | 0x8).toString(16);
+  });
+
 type SortBy = 'date' | 'amount';
 type SortDirection = 'asc' | 'desc';
 
@@ -57,8 +63,17 @@ const toErrorMessage = (context: string, error: unknown): string => {
 };
 
 const requestJson = async <T>(url: string, init?: RequestInit): Promise<T> => {
+  const token = sessionStorage.getItem('outcomes_token');
+  const authHeader: Record<string, string> = token ? { Authorization: `Bearer ${token}` } : {};
+
   try {
-    const response = await fetch(url, init);
+    const response = await fetch(url, {
+      ...init,
+      headers: {
+        ...(init?.headers as Record<string, string>),
+        ...authHeader,
+      },
+    });
 
     if (!response.ok) {
       throw new Error(`HTTP ${response.status}`);
@@ -159,7 +174,7 @@ export const useFinanceStore = create<FinanceState>((set, get) => ({
   addTransaction: async (payload) => {
     const nextTransaction: Transaction = {
       ...payload,
-      id: crypto.randomUUID(),
+      id: generateId(),
     };
 
     const created = await requestJson<Transaction>(TRANSACTIONS_URL, {
@@ -207,7 +222,7 @@ export const useFinanceStore = create<FinanceState>((set, get) => ({
     const created = await requestJson<AssetPosition>(ASSETS_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ ...payload, id: crypto.randomUUID() }),
+      body: JSON.stringify({ ...payload, id: generateId() }),
     });
 
     set({ assets: sortAssets([...get().assets, created]) });
@@ -238,7 +253,7 @@ export const useFinanceStore = create<FinanceState>((set, get) => ({
     const created = await requestJson<Liability>(LIABILITIES_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ ...payload, id: crypto.randomUUID() }),
+      body: JSON.stringify({ ...payload, id: generateId() }),
     });
 
     set({ liabilities: sortLiabilities([...get().liabilities, created]) });

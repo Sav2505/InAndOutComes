@@ -2,6 +2,7 @@ import 'dotenv/config';
 import cors from 'cors';
 import express from 'express';
 import { pool } from './db.js';
+import { authRouter } from './routes/auth.js';
 import { assetsRouter } from './routes/assets.js';
 import { categoriesRouter } from './routes/categories.js';
 import { liabilitiesRouter } from './routes/liabilities.js';
@@ -13,6 +14,7 @@ const PORT = process.env.PORT ?? 3001;
 app.use(cors());
 app.use(express.json());
 
+app.use('/auth', authRouter);
 app.use('/categories', categoriesRouter);
 app.use('/transactions', transactionsRouter);
 app.use('/assets', assetsRouter);

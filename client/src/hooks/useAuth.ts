@@ -1,33 +1,57 @@
 const SESSION_KEY = 'outcomes_auth';
+const TOKEN_KEY = 'outcomes_token';
+const USER_KEY = 'outcomes_user';
 
-const VALID_USERNAME = import.meta.env.VITE_AUTH_USERNAME as string;
-const VALID_PASSWORD_HASH = import.meta.env.VITE_AUTH_PASSWORD_HASH as string;
+const API = import.meta.env.VITE_API_BASE_URL ?? '/api';
 
-async function sha256(message: string): Promise<string> {
-  const msgBuffer = new TextEncoder().encode(message);
-  const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
-  const hashArray = Array.from(new Uint8Array(hashBuffer));
-  return hashArray.map((b) => b.toString(16).padStart(2, '0')).join('');
+export interface AuthUser {
+  id: string;
+  name: string;
 }
 
 export function isAuthenticated(): boolean {
   return sessionStorage.getItem(SESSION_KEY) === 'true';
 }
 
-export async function login(username: string, password: string): Promise<boolean> {
-  const passwordHash = await sha256(password);
+export function getAuthToken(): string | null {
+  return sessionStorage.getItem(TOKEN_KEY);
+}
 
-  const usernameMatch = username === VALID_USERNAME;
-  const passwordMatch = passwordHash === VALID_PASSWORD_HASH;
-
-  if (usernameMatch && passwordMatch) {
-    sessionStorage.setItem(SESSION_KEY, 'true');
-    return true;
+export function getAuthUser(): AuthUser | null {
+  const raw = sessionStorage.getItem(USER_KEY);
+  if (!raw) return null;
+  try {
+    return JSON.parse(raw) as AuthUser;
+  } catch {
+    return null;
   }
+}
 
-  return false;
+export async function login(username: string, password: string): Promise<boolean> {
+  const response = await fetch(`${API}/auth/login`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ username, password }),
+  });
+
+  if (!response.ok) return false;
+
+  const data = (await response.json()) as { token: string; userId: string; name: string };
+  sessionStorage.setItem(SESSION_KEY, 'true');
+  sessionStorage.setItem(TOKEN_KEY, data.token);
+  sessionStorage.setItem(USER_KEY, JSON.stringify({ id: data.userId, name: data.name }));
+  return true;
 }
 
 export function logout(): void {
+  const token = getAuthToken();
+  if (token) {
+    void fetch(`${API}/auth/logout`, {
+      method: 'POST',
+      headers: { Authorization: `Bearer ${token}` },
+    });
+  }
   sessionStorage.removeItem(SESSION_KEY);
+  sessionStorage.removeItem(TOKEN_KEY);
+  sessionStorage.removeItem(USER_KEY);
 }

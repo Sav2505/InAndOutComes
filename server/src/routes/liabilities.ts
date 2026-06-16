@@ -1,7 +1,9 @@
 import { Router } from 'express';
+import { requireAuth } from '../middleware/auth.js';
 import { pool } from '../db.js';
 
 export const liabilitiesRouter = Router();
+liabilitiesRouter.use(requireAuth);
 
 interface LiabilityRow {
   id: string;
@@ -29,9 +31,10 @@ const toClient = (row: LiabilityRow) => ({
   ...(row.notes != null ? { notes: row.notes } : {}),
 });
 
-liabilitiesRouter.get('/', async (_req, res) => {
+liabilitiesRouter.get('/', async (req, res) => {
   const { rows } = await pool.query<LiabilityRow>(
-    'SELECT * FROM liabilities ORDER BY remaining_amount DESC',
+    'SELECT * FROM liabilities WHERE user_id = $1 ORDER BY remaining_amount DESC',
+    [req.user.id],
   );
   res.json(rows.map(toClient));
 });
@@ -45,10 +48,10 @@ liabilitiesRouter.post('/', async (req, res) => {
     };
 
   const { rows } = await pool.query<LiabilityRow>(
-    `INSERT INTO liabilities (id, name, lender, kind, original_amount, remaining_amount,
+    `INSERT INTO liabilities (id, user_id, name, lender, kind, original_amount, remaining_amount,
       monthly_payment, interest_rate, end_date, notes)
-     VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10) RETURNING *`,
-    [id, name, lender, kind, originalAmount, remainingAmount,
+     VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11) RETURNING *`,
+    [id, req.user.id, name, lender, kind, originalAmount, remainingAmount,
       monthlyPayment ?? null, interestRate ?? null, endDate ?? null, notes ?? null],
   );
   res.status(201).json(toClient(rows[0]));
@@ -65,16 +68,16 @@ liabilitiesRouter.put('/:id', async (req, res) => {
   const { rows } = await pool.query<LiabilityRow>(
     `UPDATE liabilities SET name=$1, lender=$2, kind=$3, original_amount=$4,
       remaining_amount=$5, monthly_payment=$6, interest_rate=$7, end_date=$8, notes=$9
-     WHERE id=$10 RETURNING *`,
+     WHERE id=$10 AND user_id=$11 RETURNING *`,
     [name, lender, kind, originalAmount, remainingAmount,
       monthlyPayment ?? null, interestRate ?? null, endDate ?? null,
-      notes ?? null, req.params.id],
+      notes ?? null, req.params.id, req.user.id],
   );
   if (rows.length === 0) return res.status(404).json({ error: 'Not found' });
   res.json(toClient(rows[0]));
 });
 
 liabilitiesRouter.delete('/:id', async (req, res) => {
-  await pool.query('DELETE FROM liabilities WHERE id=$1', [req.params.id]);
+  await pool.query('DELETE FROM liabilities WHERE id=$1 AND user_id=$2', [req.params.id, req.user.id]);
   res.status(204).end();
 });
