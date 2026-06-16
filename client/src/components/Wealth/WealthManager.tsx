@@ -20,6 +20,7 @@ import { useMemo, useState } from 'react';
 import { AssetLiquidityChart } from '../Charts/AssetLiquidityChart';
 import { WealthDistributionChart } from '../Charts/WealthDistributionChart';
 import { useFinanceStore } from '../../store/financeStore';
+import { NumericTextField } from '../Forms/NumericTextField';
 import type {
   AssetKind,
   AssetPosition,
@@ -577,40 +578,34 @@ export const WealthManager = () => {
                 </MenuItem>
               ))}
             </TextField>
-            <TextField
-              type="number"
+            <NumericTextField
               label="זמן משוער לנזילות (ימים)"
-              value={assetForm.liquidityDays === 0 ? '' : assetForm.liquidityDays}
-              onChange={(event) =>
-                setAssetForm((prev) => ({ ...prev, liquidityDays: Number(event.target.value) }))
+              value={assetForm.liquidityDays}
+              onChange={(num) =>
+                setAssetForm((prev) => ({ ...prev, liquidityDays: num }))
               }
-              slotProps={{ htmlInput: { min: 0 } }}
             />
-            <TextField
-              type="number"
+            <NumericTextField
               label="יתרה"
-              value={assetForm.currentBalance === 0 ? '' : assetForm.currentBalance}
-              onChange={(event) =>
-                setAssetForm((prev) => ({ ...prev, currentBalance: Number(event.target.value) }))
+              value={assetForm.currentBalance}
+              onChange={(num) =>
+                setAssetForm((prev) => ({ ...prev, currentBalance: num }))
               }
             />
-            <TextField
-              type="number"
+            <NumericTextField
               label="הפקדה חודשית"
-              value={assetForm.monthlyContribution === 0 ? '' : assetForm.monthlyContribution}
-              onChange={(event) =>
-                setAssetForm((prev) => ({ ...prev, monthlyContribution: Number(event.target.value) }))
+              value={assetForm.monthlyContribution}
+              onChange={(num) =>
+                setAssetForm((prev) => ({ ...prev, monthlyContribution: num }))
               }
-              slotProps={{ htmlInput: { min: 0 } }}
             />
-            <TextField
-              type="number"
+            <NumericTextField
               label="צבירה/תשואה שנתית %"
-              value={assetForm.annualReturnRate === 0 ? '' : assetForm.annualReturnRate}
-              onChange={(event) =>
-                setAssetForm((prev) => ({ ...prev, annualReturnRate: Number(event.target.value) }))
+              allowDecimals
+              value={assetForm.annualReturnRate}
+              onChange={(num) =>
+                setAssetForm((prev) => ({ ...prev, annualReturnRate: num }))
               }
-              slotProps={{ htmlInput: { min: -100, max: 100 } }}
             />
             <TextField
               type="date"
@@ -682,36 +677,33 @@ export const WealthManager = () => {
                 </MenuItem>
               ))}
             </TextField>
-            <TextField
-              type="number"
+            <NumericTextField
               label="סכום מקורי"
-              value={liabilityForm.originalAmount === 0 ? '' : liabilityForm.originalAmount}
-              onChange={(event) =>
-                setLiabilityForm((prev) => ({ ...prev, originalAmount: Number(event.target.value) }))
+              value={liabilityForm.originalAmount}
+              onChange={(num) =>
+                setLiabilityForm((prev) => ({ ...prev, originalAmount: num }))
               }
             />
-            <TextField
-              type="number"
+            <NumericTextField
               label="יתרה לתשלום"
-              value={liabilityForm.remainingAmount === 0 ? '' : liabilityForm.remainingAmount}
-              onChange={(event) =>
-                setLiabilityForm((prev) => ({ ...prev, remainingAmount: Number(event.target.value) }))
+              value={liabilityForm.remainingAmount}
+              onChange={(num) =>
+                setLiabilityForm((prev) => ({ ...prev, remainingAmount: num }))
               }
             />
-            <TextField
-              type="number"
+            <NumericTextField
               label="תשלום חודשי"
-              value={liabilityForm.monthlyPayment === 0 ? '' : liabilityForm.monthlyPayment}
-              onChange={(event) =>
-                setLiabilityForm((prev) => ({ ...prev, monthlyPayment: Number(event.target.value) }))
+              value={liabilityForm.monthlyPayment}
+              onChange={(num) =>
+                setLiabilityForm((prev) => ({ ...prev, monthlyPayment: num }))
               }
             />
-            <TextField
-              type="number"
+            <NumericTextField
               label="ריבית %"
-              value={liabilityForm.interestRate === 0 ? '' : liabilityForm.interestRate}
-              onChange={(event) =>
-                setLiabilityForm((prev) => ({ ...prev, interestRate: Number(event.target.value) }))
+              allowDecimals
+              value={liabilityForm.interestRate}
+              onChange={(num) =>
+                setLiabilityForm((prev) => ({ ...prev, interestRate: num }))
               }
             />
             <TextField

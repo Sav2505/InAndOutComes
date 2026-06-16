@@ -1,6 +1,7 @@
 import 'dotenv/config';
 import cors from 'cors';
 import express from 'express';
+import { pool } from './db.js';
 import { assetsRouter } from './routes/assets.js';
 import { categoriesRouter } from './routes/categories.js';
 import { liabilitiesRouter } from './routes/liabilities.js';
@@ -18,6 +19,16 @@ app.use('/assets', assetsRouter);
 app.use('/liabilities', liabilitiesRouter);
 
 app.get('/health', (_req, res) => res.json({ status: 'ok' }));
+
+// Keep-alive: prevent Render free tier from spinning down
+setInterval(async () => {
+  try {
+    await pool.query('SELECT 1');
+    console.log('[keep-alive] ping ok');
+  } catch (err) {
+    console.error('[keep-alive] ping failed:', err);
+  }
+}, 10 * 60 * 1000);
 
 app.use((err: unknown, _req: express.Request, res: express.Response, _next: express.NextFunction) => {
   console.error(err);

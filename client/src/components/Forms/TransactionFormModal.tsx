@@ -20,6 +20,7 @@ import dayjs from 'dayjs';
 import { motion } from 'framer-motion';
 import { useMemo, useState } from 'react';
 import type { Category, RecurringType, Transaction, TransactionType } from '../../types';
+import { NumericTextField } from './NumericTextField';
 
 export interface TransactionFormValues {
   title: string;
@@ -148,15 +149,11 @@ export const TransactionFormModal = ({
             <Grid size={{ xs: 12, md: 4 }}>
               <Stack spacing={0.7}>
                 <Typography sx={fieldTitleSx}>סכום</Typography>
-                <TextField
+                <NumericTextField
                   fullWidth
-                  type="number"
                   placeholder="0"
-                  value={values.amount === 0 ? '' : values.amount}
-                  onChange={(event) =>
-                    setValues((prev) => ({ ...prev, amount: Number(event.target.value) }))
-                  }
-                  slotProps={{ htmlInput: { min: 0 } }}
+                  value={values.amount}
+                  onChange={(num) => setValues((prev) => ({ ...prev, amount: num }))}
                 />
               </Stack>
             </Grid>
