@@ -32,11 +32,19 @@ export const Sidebar = ({ onNavigate }: SidebarProps) => {
   return (
     <Box sx={{ height: '100%', px: 2, py: 3 }}>
       <Stack component={motion.div} initial={{ opacity: 0, y: -8 }} animate={{ opacity: 1, y: 0 }} spacing={0.8}>
-        <Chip
-          label="ניהול תקציב אישי"
-          size="small"
-          sx={{ width: 'fit-content', bgcolor: 'primary.soft', color: 'primary.main', fontWeight: 700 }}
-        />
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.2, mb: 0.5 }}>
+          <Box
+            component="img"
+            src="/logo.svg"
+            alt="לוגו מעקב כספי"
+            sx={{ width: 38, height: 38, borderRadius: 2, flexShrink: 0 }}
+          />
+          <Chip
+            label="ניהול תקציב אישי"
+            size="small"
+            sx={{ width: 'fit-content', bgcolor: 'primary.soft', color: 'primary.main', fontWeight: 700 }}
+          />
+        </Box>
         <Typography
           variant="h6"
           fontWeight={800}
