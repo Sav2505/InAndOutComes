@@ -63,7 +63,7 @@ const toErrorMessage = (context: string, error: unknown): string => {
 };
 
 const requestJson = async <T>(url: string, init?: RequestInit): Promise<T> => {
-  const token = sessionStorage.getItem('outcomes_token');
+  const token = localStorage.getItem('outcomes_token');
   const authHeader: Record<string, string> = token ? { Authorization: `Bearer ${token}` } : {};
 
   try {

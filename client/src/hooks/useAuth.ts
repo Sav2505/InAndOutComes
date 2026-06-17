@@ -10,15 +10,15 @@ export interface AuthUser {
 }
 
 export function isAuthenticated(): boolean {
-  return sessionStorage.getItem(SESSION_KEY) === 'true';
+  return localStorage.getItem(SESSION_KEY) === 'true';
 }
 
 export function getAuthToken(): string | null {
-  return sessionStorage.getItem(TOKEN_KEY);
+  return localStorage.getItem(TOKEN_KEY);
 }
 
 export function getAuthUser(): AuthUser | null {
-  const raw = sessionStorage.getItem(USER_KEY);
+  const raw = localStorage.getItem(USER_KEY);
   if (!raw) return null;
   try {
     return JSON.parse(raw) as AuthUser;
@@ -37,9 +37,9 @@ export async function login(username: string, password: string): Promise<boolean
   if (!response.ok) return false;
 
   const data = (await response.json()) as { token: string; userId: string; name: string };
-  sessionStorage.setItem(SESSION_KEY, 'true');
-  sessionStorage.setItem(TOKEN_KEY, data.token);
-  sessionStorage.setItem(USER_KEY, JSON.stringify({ id: data.userId, name: data.name }));
+  localStorage.setItem(SESSION_KEY, 'true');
+  localStorage.setItem(TOKEN_KEY, data.token);
+  localStorage.setItem(USER_KEY, JSON.stringify({ id: data.userId, name: data.name }));
   return true;
 }
 
@@ -51,7 +51,7 @@ export function logout(): void {
       headers: { Authorization: `Bearer ${token}` },
     });
   }
-  sessionStorage.removeItem(SESSION_KEY);
-  sessionStorage.removeItem(TOKEN_KEY);
-  sessionStorage.removeItem(USER_KEY);
+  localStorage.removeItem(SESSION_KEY);
+  localStorage.removeItem(TOKEN_KEY);
+  localStorage.removeItem(USER_KEY);
 }
