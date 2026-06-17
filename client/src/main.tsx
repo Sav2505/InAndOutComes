@@ -7,9 +7,7 @@ import 'dayjs/locale/he'
 import './index.css'
 import App from './App.tsx'
 import theme from './styles/theme'
-import { useFinanceStore } from './store/financeStore'
 
-void useFinanceStore.getState().initialize()
 dayjs.locale('he')
 document.documentElement.setAttribute('lang', 'he')
 document.documentElement.setAttribute('dir', 'rtl')

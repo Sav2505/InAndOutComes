@@ -1,7 +1,8 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import { TransactionFormModal, type TransactionFormValues } from './components/Forms/TransactionFormModal';
 import { AppLayout } from './components/Layout/AppLayout';
+import { LoadingScreen } from './components/Layout/LoadingScreen';
 import { isAuthenticated } from './hooks/useAuth';
 import { DashboardPage } from './pages/DashboardPage';
 import { FuturePlanningPage } from './pages/FuturePlanningPage';
@@ -14,7 +15,13 @@ import { useFinanceStore } from './store/financeStore';
 function App() {
   const [authenticated, setAuthenticated] = useState(isAuthenticated);
   const [addModalOpen, setAddModalOpen] = useState(false);
-  const { addTransaction, categories } = useFinanceStore();
+  const { addTransaction, categories, initialize, initialized } = useFinanceStore();
+
+  useEffect(() => {
+    if (authenticated) {
+      void initialize();
+    }
+  }, [authenticated]);
 
   const stableCategories = useMemo(() => categories, [categories]);
 
@@ -29,6 +36,10 @@ function App() {
 
   if (!authenticated) {
     return <LoginPage onSuccess={() => setAuthenticated(true)} />;
+  }
+
+  if (!initialized) {
+    return <LoadingScreen />;
   }
 
   return (
